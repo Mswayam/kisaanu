@@ -1,4 +1,13 @@
-export const translations = {
+export interface TranslationDictionary {
+  [key: string]: string;
+}
+
+export interface Translations {
+  en: TranslationDictionary;
+  hi: TranslationDictionary;
+}
+
+export const translations: Translations = {
   en: {
     // General / Common
     brandName: "KISAANU NEXUS",

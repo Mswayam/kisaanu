@@ -9,10 +9,22 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { useLanguage } from '../context/LanguageContext';
 
-export const CompleteTaskScreen = ({ onYesCompleted, onNotYet, onStopTask, onTabSelect }) => {
+export interface CompleteTaskScreenProps {
+  onYesCompleted?: () => void;
+  onNotYet?: () => void;
+  onStopTask?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const CompleteTaskScreen: React.FC<CompleteTaskScreenProps> = ({
+  onYesCompleted,
+  onNotYet,
+  onStopTask,
+  onTabSelect,
+}) => {
   const { t } = useLanguage();
 
   return (

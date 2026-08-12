@@ -5,18 +5,19 @@ export default defineConfig({
   plugins: [
     react({
       jsxRuntime: 'automatic',
-      include: '**/*.{jsx,js}',
+      include: '**/*.{jsx,js,tsx,ts}',
     }),
   ],
   esbuild: {
-    loader: 'jsx',
-    include: /\.jsx?$/,
+    loader: 'tsx',
+    include: /\.[jt]sx?$/,
     exclude: [],
   },
   optimizeDeps: {
     esbuildOptions: {
       loader: {
         '.js': 'jsx',
+        '.ts': 'tsx',
       },
     },
   },

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
 
-export const LanguageToggle = () => {
+export const LanguageToggle: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
   return (

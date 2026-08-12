@@ -12,7 +12,12 @@ import { Header } from '../components/Header';
 import { LocationIcon, CameraIcon, MicIcon } from '../components/Icons';
 import { useLanguage } from '../context/LanguageContext';
 
-export const PermissionsScreen = ({ onFinish, onBack }) => {
+export interface PermissionsScreenProps {
+  onFinish?: () => void;
+  onBack?: () => void;
+}
+
+export const PermissionsScreen: React.FC<PermissionsScreenProps> = ({ onFinish, onBack }) => {
   const { t } = useLanguage();
 
   const permissionsList = [

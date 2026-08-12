@@ -16,9 +16,14 @@ import { useLanguage } from '../context/LanguageContext';
 
 import tractorLoginImg from '../../assets/images/tractor_login.png';
 
-export const MobileLoginScreen = ({ onNext, onBack }) => {
+export interface MobileLoginScreenProps {
+  onNext?: (phone: string) => void;
+  onBack?: () => void;
+}
+
+export const MobileLoginScreen: React.FC<MobileLoginScreenProps> = ({ onNext, onBack }) => {
   const { t } = useLanguage();
-  const [phoneNumber, setPhoneNumber] = useState('98765 43210');
+  const [phoneNumber, setPhoneNumber] = useState<string>('98765 43210');
 
   return (
     <SafeAreaView style={styles.safeArea}>

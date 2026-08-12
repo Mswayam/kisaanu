@@ -9,10 +9,16 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { useLanguage } from '../context/LanguageContext';
 
-export const TaskDetailsScreen = ({ onNext, onBack, onTabSelect }) => {
+export interface TaskDetailsScreenProps {
+  onNext?: () => void;
+  onBack?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const TaskDetailsScreen: React.FC<TaskDetailsScreenProps> = ({ onNext, onBack, onTabSelect }) => {
   const { t } = useLanguage();
 
   return (

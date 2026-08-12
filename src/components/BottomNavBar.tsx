@@ -9,10 +9,17 @@ import {
 } from './Icons';
 import { useLanguage } from '../context/LanguageContext';
 
-export const BottomNavBar = ({ activeTab = 'Home', onTabSelect }) => {
+export type TabKey = 'Home' | 'Tasks' | 'Voice' | 'Attendance' | 'Profile';
+
+export interface BottomNavBarProps {
+  activeTab?: TabKey;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const BottomNavBar: React.FC<BottomNavBarProps> = ({ activeTab = 'Home', onTabSelect }) => {
   const { t } = useLanguage();
 
-  const tabs = [
+  const tabs: { key: TabKey; label: string; icon: (act: boolean) => React.ReactNode }[] = [
     { key: 'Home', label: t('tabHome'), icon: (act) => <HomeTabIcon active={act} /> },
     { key: 'Tasks', label: t('tabTasks'), icon: (act) => <TasksTabIcon active={act} /> },
     { key: 'Voice', label: t('tabVoice'), icon: (act) => <VoiceTabIcon active={act} /> },

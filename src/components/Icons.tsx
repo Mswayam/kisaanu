@@ -1,78 +1,82 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export const BackArrowIcon = () => (
+export interface TabIconProps {
+  active?: boolean;
+}
+
+export const BackArrowIcon: React.FC = () => (
   <View style={styles.backCircle}>
     <Text style={styles.backArrowText}>←</Text>
   </View>
 );
 
-export const LocationIcon = () => (
+export const LocationIcon: React.FC = () => (
   <View style={styles.iconCircle}>
     <Text style={styles.iconText}>📍</Text>
   </View>
 );
 
-export const CameraIcon = () => (
+export const CameraIcon: React.FC = () => (
   <View style={styles.iconCircle}>
     <Text style={styles.iconText}>📷</Text>
   </View>
 );
 
-export const MicIcon = () => (
+export const MicIcon: React.FC = () => (
   <View style={styles.iconCircle}>
     <Text style={styles.iconText}>🎙️</Text>
   </View>
 );
 
-export const LockIcon = () => (
+export const LockIcon: React.FC = () => (
   <Text style={styles.lockText}>🔒</Text>
 );
 
-export const CheckMarkIcon = () => (
+export const CheckMarkIcon: React.FC = () => (
   <Text style={styles.checkText}>✓</Text>
 );
 
-export const ClockIcon = () => (
+export const ClockIcon: React.FC = () => (
   <Text style={styles.clockIconText}>🕒</Text>
 );
 
-export const StarIcon = () => (
+export const StarIcon: React.FC = () => (
   <Text style={styles.starIconText}>⭐</Text>
 );
 
-export const AvatarIcon = () => (
+export const AvatarIcon: React.FC = () => (
   <View style={styles.avatarCircle}>
     <Text style={styles.avatarText}>👳‍♂️</Text>
   </View>
 );
 
-export const ClipboardIcon = () => (
+export const ClipboardIcon: React.FC = () => (
   <Text style={styles.cardHeaderIcon}>📋</Text>
 );
 
-export const CheckCircleIcon = () => (
+export const CheckCircleIcon: React.FC = () => (
   <Text style={styles.cardHeaderIcon}>☑️</Text>
 );
 
 // Bottom Nav Tab Icons
-export const HomeTabIcon = ({ active }) => (
+export const HomeTabIcon: React.FC<TabIconProps> = ({ active }) => (
   <Text style={[styles.tabIcon, active && styles.tabIconActive]}>🏠</Text>
 );
 
-export const TasksTabIcon = ({ active }) => (
+export const TasksTabIcon: React.FC<TabIconProps> = ({ active }) => (
   <Text style={[styles.tabIcon, active && styles.tabIconActive]}>📋</Text>
 );
 
-export const VoiceTabIcon = ({ active }) => (
+export const VoiceTabIcon: React.FC<TabIconProps> = ({ active }) => (
   <Text style={[styles.tabIcon, active && styles.tabIconActive]}>🎙️</Text>
 );
 
-export const AttendanceTabIcon = ({ active }) => (
+export const AttendanceTabIcon: React.FC<TabIconProps> = ({ active }) => (
   <Text style={[styles.tabIcon, active && styles.tabIconActive]}>📅</Text>
 );
 
-export const ProfileTabIcon = ({ active }) => (
+export const ProfileTabIcon: React.FC<TabIconProps> = ({ active }) => (
   <Text style={[styles.tabIcon, active && styles.tabIconActive]}>👤</Text>
 );
 

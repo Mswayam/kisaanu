@@ -11,13 +11,18 @@ import {
 import { Header } from '../components/Header';
 import { useLanguage } from '../context/LanguageContext';
 
-export const VoiceNoteOptionalScreen = ({ onFinish, onBack }) => {
+export interface VoiceNoteOptionalScreenProps {
+  onFinish?: () => void;
+  onBack?: () => void;
+}
+
+export const VoiceNoteOptionalScreen: React.FC<VoiceNoteOptionalScreenProps> = ({ onFinish, onBack }) => {
   const { t } = useLanguage();
-  const [seconds, setSeconds] = useState(8);
-  const [isRecording, setIsRecording] = useState(true);
+  const [seconds, setSeconds] = useState<number>(8);
+  const [isRecording, setIsRecording] = useState<boolean>(true);
 
   useEffect(() => {
-    let timer;
+    let timer: any;
     if (isRecording) {
       timer = setInterval(() => {
         setSeconds((prev) => prev + 1);
@@ -26,10 +31,10 @@ export const VoiceNoteOptionalScreen = ({ onFinish, onBack }) => {
     return () => clearInterval(timer);
   }, [isRecording]);
 
-  const formatTimer = (totalSecs) => {
+  const formatTimer = (totalSecs: number): string => {
     const mins = Math.floor(totalSecs / 60);
     const secs = totalSecs % 60;
-    const pad = (num) => (num < 10 ? `0${num}` : num);
+    const pad = (num: number) => (num < 10 ? `0${num}` : num);
     return `${pad(mins)}:${pad(secs)}`;
   };
 

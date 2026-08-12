@@ -8,16 +8,27 @@ import {
   StatusBar,
   ScrollView,
 } from 'react-native';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { SwipeCheckInButton } from '../components/SwipeCheckInButton';
 import { useLanguage } from '../context/LanguageContext';
 
-export const AttendanceCheckInScreen = ({ onNavigateProfile, onNavigateToCheckOut, onTabSelect }) => {
-  const { t } = useLanguage();
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [isCheckedIn, setIsCheckedIn] = useState(false);
+export interface AttendanceCheckInScreenProps {
+  onNavigateProfile?: () => void;
+  onNavigateToCheckOut?: () => void;
+  onBack?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
 
-  const handleToggleCheckIn = (checkedState) => {
+export const AttendanceCheckInScreen: React.FC<AttendanceCheckInScreenProps> = ({
+  onNavigateProfile,
+  onNavigateToCheckOut,
+  onTabSelect,
+}) => {
+  const { t } = useLanguage();
+  const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
+  const [isCheckedIn, setIsCheckedIn] = useState<boolean>(false);
+
+  const handleToggleCheckIn = (checkedState: boolean) => {
     setIsCheckedIn(checkedState);
     if (checkedState && onNavigateToCheckOut) {
       setTimeout(() => {

@@ -14,12 +14,16 @@ import { useLanguage } from '../context/LanguageContext';
 
 import defaultPhotoImg from '../../assets/images/photo_proof.png';
 
-export const PhotoProofScreen = ({ onNext, onBack }) => {
+export interface PhotoProofScreenProps {
+  onNext?: () => void;
+  onBack?: () => void;
+}
+
+export const PhotoProofScreen: React.FC<PhotoProofScreenProps> = ({ onNext, onBack }) => {
   const { t } = useLanguage();
-  const [photoUri, setPhotoUri] = useState(defaultPhotoImg);
-  const [isCameraActive, setIsCameraActive] = useState(false);
-  const fileInputRef = useRef(null);
-  const videoRef = useRef(null);
+  const [photoUri, setPhotoUri] = useState<any>(defaultPhotoImg);
+  const [isCameraActive, setIsCameraActive] = useState<boolean>(false);
+  const videoRef = useRef<any>(null);
 
   // Trigger Native File Picker (Gallery Option)
   const handleGalleryClick = () => {
@@ -27,7 +31,7 @@ export const PhotoProofScreen = ({ onNext, onBack }) => {
       const input = document.createElement('input');
       input.type = 'file';
       input.accept = 'image/*';
-      input.onchange = (e) => {
+      input.onchange = (e: any) => {
         const file = e.target.files[0];
         if (file) {
           const url = URL.createObjectURL(file);
@@ -63,13 +67,15 @@ export const PhotoProofScreen = ({ onNext, onBack }) => {
       canvas.width = videoRef.current.videoWidth || 640;
       canvas.height = videoRef.current.videoHeight || 480;
       const ctx = canvas.getContext('2d');
-      ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-      const dataUrl = canvas.toDataURL('image/jpeg');
-      setPhotoUri(dataUrl);
+      if (ctx) {
+        ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/jpeg');
+        setPhotoUri(dataUrl);
+      }
 
       // Stop camera tracks
       if (videoRef.current.srcObject) {
-        videoRef.current.srcObject.getTracks().forEach(track => track.stop());
+        videoRef.current.srcObject.getTracks().forEach((track: any) => track.stop());
       }
       setIsCameraActive(false);
     } else {
@@ -94,7 +100,7 @@ export const PhotoProofScreen = ({ onNext, onBack }) => {
               autoPlay
               playsInline
               muted
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' } as any}
             />
           ) : (
             <Image
@@ -222,7 +228,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     justifyContent: 'center',
     alignItems: 'center',
-    pointerEvents: 'none',
   },
   reticleIcon: {
     fontSize: 20,

@@ -9,13 +9,18 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { ClockIcon, StarIcon } from '../components/Icons';
 import { useLanguage } from '../context/LanguageContext';
 
-export const TodaysTasksScreen = ({ onNavigate, onTabSelect }) => {
+export interface TodaysTasksScreenProps {
+  onNavigate?: (screenId: number) => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const TodaysTasksScreen: React.FC<TodaysTasksScreenProps> = ({ onNavigate, onTabSelect }) => {
   const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('today');
+  const [activeTab, setActiveTab] = useState<'today' | 'completed'>('today');
 
   const tasksList = [
     {

@@ -9,11 +9,16 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { ClipboardIcon, CheckCircleIcon, MicIcon, CameraIcon, AvatarIcon } from '../components/Icons';
 import { useLanguage } from '../context/LanguageContext';
 
-export const DashboardHomeScreen = ({ onNavigate, onTabSelect }) => {
+export interface DashboardHomeScreenProps {
+  onNavigate?: (screenId: number) => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const DashboardHomeScreen: React.FC<DashboardHomeScreenProps> = ({ onNavigate, onTabSelect }) => {
   const { t } = useLanguage();
 
   return (

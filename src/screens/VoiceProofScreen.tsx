@@ -12,7 +12,13 @@ import { Header } from '../components/Header';
 import { MicIcon, CameraIcon } from '../components/Icons';
 import { useLanguage } from '../context/LanguageContext';
 
-export const VoiceProofScreen = ({ onStartVoice, onCancel, onBack }) => {
+export interface VoiceProofScreenProps {
+  onStartVoice?: () => void;
+  onCancel?: () => void;
+  onBack?: () => void;
+}
+
+export const VoiceProofScreen: React.FC<VoiceProofScreenProps> = ({ onStartVoice, onCancel, onBack }) => {
   const { t } = useLanguage();
 
   return (

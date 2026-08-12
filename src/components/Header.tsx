@@ -4,9 +4,21 @@ import { BackArrowIcon } from './Icons';
 import { LanguageToggle } from './LanguageToggle';
 import { useLanguage } from '../context/LanguageContext';
 
-export const Header = ({ showBack = false, onBackPress, onNavigateProfile, onLogout }) => {
+export interface HeaderProps {
+  showBack?: boolean;
+  onBackPress?: () => void;
+  onNavigateProfile?: () => void;
+  onLogout?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({
+  showBack = false,
+  onBackPress,
+  onNavigateProfile,
+  onLogout,
+}) => {
   const { t } = useLanguage();
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
 
   return (
     <View style={styles.headerContainer}>

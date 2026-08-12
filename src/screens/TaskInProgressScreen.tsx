@@ -10,13 +10,19 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { useLanguage } from '../context/LanguageContext';
 
-export const TaskInProgressScreen = ({ onFinish, onBack, onTabSelect }) => {
+export interface TaskInProgressScreenProps {
+  onFinish?: () => void;
+  onBack?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const TaskInProgressScreen: React.FC<TaskInProgressScreenProps> = ({ onFinish, onBack, onTabSelect }) => {
   const { t } = useLanguage();
-  const [seconds, setSeconds] = useState(1536); // 25 mins 36 secs
-  const [notes, setNotes] = useState('');
+  const [seconds, setSeconds] = useState<number>(1536); // 25 mins 36 secs
+  const [notes, setNotes] = useState<string>('');
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,11 +31,11 @@ export const TaskInProgressScreen = ({ onFinish, onBack, onTabSelect }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const formatTimer = (totalSecs) => {
+  const formatTimer = (totalSecs: number): string => {
     const hrs = Math.floor(totalSecs / 3600);
     const mins = Math.floor((totalSecs % 3600) / 60);
     const secs = totalSecs % 60;
-    const pad = (num) => (num < 10 ? `0${num}` : num);
+    const pad = (num: number) => (num < 10 ? `0${num}` : num);
     return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
   };
 

@@ -14,7 +14,12 @@ import { useLanguage } from '../context/LanguageContext';
 
 import photoProofImg from '../../assets/images/photo_proof.png';
 
-export const SubmitProofScreen = ({ onSubmit, onBack }) => {
+export interface SubmitProofScreenProps {
+  onSubmit?: () => void;
+  onBack?: () => void;
+}
+
+export const SubmitProofScreen: React.FC<SubmitProofScreenProps> = ({ onSubmit, onBack }) => {
   const { t } = useLanguage();
 
   return (

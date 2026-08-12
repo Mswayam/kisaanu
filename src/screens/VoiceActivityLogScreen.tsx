@@ -9,16 +9,22 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { useLanguage } from '../context/LanguageContext';
 
-export const VoiceActivityLogScreen = ({ onSave, onBack, onTabSelect }) => {
+export interface VoiceActivityLogScreenProps {
+  onSave?: () => void;
+  onBack?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const VoiceActivityLogScreen: React.FC<VoiceActivityLogScreenProps> = ({ onSave, onBack, onTabSelect }) => {
   const { t } = useLanguage();
-  const [seconds, setSeconds] = useState(15);
-  const [isRecording, setIsRecording] = useState(true);
+  const [seconds, setSeconds] = useState<number>(15);
+  const [isRecording, setIsRecording] = useState<boolean>(true);
 
   useEffect(() => {
-    let timer;
+    let timer: any;
     if (isRecording) {
       timer = setInterval(() => {
         setSeconds((prev) => prev + 1);
@@ -27,10 +33,10 @@ export const VoiceActivityLogScreen = ({ onSave, onBack, onTabSelect }) => {
     return () => clearInterval(timer);
   }, [isRecording]);
 
-  const formatTimer = (totalSecs) => {
+  const formatTimer = (totalSecs: number): string => {
     const mins = Math.floor(totalSecs / 60);
     const secs = totalSecs % 60;
-    const pad = (num) => (num < 10 ? `0${num}` : num);
+    const pad = (num: number) => (num < 10 ? `0${num}` : num);
     return `${pad(mins)}:${pad(secs)}`;
   };
 

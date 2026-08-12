@@ -10,7 +10,12 @@ import {
 } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
 
-export const SubmissionSuccessScreen = ({ onOkay, onHome }) => {
+export interface SubmissionSuccessScreenProps {
+  onOkay?: () => void;
+  onHome?: () => void;
+}
+
+export const SubmissionSuccessScreen: React.FC<SubmissionSuccessScreenProps> = ({ onOkay, onHome }) => {
   const { t } = useLanguage();
 
   return (

@@ -9,10 +9,20 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { useLanguage } from '../context/LanguageContext';
 
-export const NotificationsOfflineScreen = ({ onCheckConnection, onBack, onTabSelect }) => {
+export interface NotificationsOfflineScreenProps {
+  onCheckConnection?: () => void;
+  onBack?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const NotificationsOfflineScreen: React.FC<NotificationsOfflineScreenProps> = ({
+  onCheckConnection,
+  onBack,
+  onTabSelect,
+}) => {
   const { t } = useLanguage();
 
   return (

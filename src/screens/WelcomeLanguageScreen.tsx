@@ -13,7 +13,12 @@ import { useLanguage } from '../context/LanguageContext';
 
 import farmerWelcomeImg from '../../assets/images/farmer_welcome.png';
 
-export const WelcomeLanguageScreen = ({ onNext, onRegister }) => {
+export interface WelcomeLanguageScreenProps {
+  onNext?: () => void;
+  onRegister?: () => void;
+}
+
+export const WelcomeLanguageScreen: React.FC<WelcomeLanguageScreenProps> = ({ onNext, onRegister }) => {
   const { language, setLanguage, t } = useLanguage();
 
   return (

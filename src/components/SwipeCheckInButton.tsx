@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-export const SwipeCheckInButton = ({ isCheckedIn = false, onToggleCheckIn }) => {
-  const [slidePos, setSlidePos] = useState(isCheckedIn ? 'right' : 'left');
+export interface SwipeCheckInButtonProps {
+  isCheckedIn?: boolean;
+  onToggleCheckIn?: (checkedIn: boolean) => void;
+}
+
+export const SwipeCheckInButton: React.FC<SwipeCheckInButtonProps> = ({ isCheckedIn = false, onToggleCheckIn }) => {
+  const [slidePos, setSlidePos] = useState<'left' | 'right'>(isCheckedIn ? 'right' : 'left');
 
   const handlePress = () => {
     const newPos = slidePos === 'left' ? 'right' : 'left';

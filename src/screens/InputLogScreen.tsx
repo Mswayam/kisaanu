@@ -9,10 +9,16 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { useLanguage } from '../context/LanguageContext';
 
-export const InputLogScreen = ({ onAddEntry, onBack, onTabSelect }) => {
+export interface InputLogScreenProps {
+  onAddEntry?: () => void;
+  onBack?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const InputLogScreen: React.FC<InputLogScreenProps> = ({ onAddEntry, onBack, onTabSelect }) => {
   const { t } = useLanguage();
 
   const logs = [
@@ -161,6 +167,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 3,
     borderRadius: 10,
+  },
+  badgeText: {
+    fontSize: 11,
+    fontWeight: '700',
   },
   greenBadge: {
     backgroundColor: '#E8F5E9',

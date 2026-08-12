@@ -28,22 +28,23 @@ import { AttendanceCheckOutScreen } from './src/screens/AttendanceCheckOutScreen
 import { VoiceActivityLogScreen } from './src/screens/VoiceActivityLogScreen';
 import { InputLogScreen } from './src/screens/InputLogScreen';
 import { NotificationsOfflineScreen } from './src/screens/NotificationsOfflineScreen';
-import { FarmerProfileScreen } from './src/screens/FarmerProfileScreen';
-import { NewRegistrationScreen } from './src/screens/NewRegistrationScreen';
+import { FarmerProfileScreen, UserProfile } from './src/screens/FarmerProfileScreen';
+import { NewRegistrationScreen, NewUser } from './src/screens/NewRegistrationScreen';
+import { TabKey } from './src/components/BottomNavBar';
 
 function MainNavigator() {
   const { t } = useLanguage();
-  const [currentScreen, setCurrentScreen] = useState(1);
-  const [completed, setCompleted] = useState(false);
-  const [isCheckedIn, setIsCheckedIn] = useState(true);
-  const [currentUser, setCurrentUser] = useState({
+  const [currentScreen, setCurrentScreen] = useState<number>(1);
+  const [completed, setCompleted] = useState<boolean>(false);
+  const [isCheckedIn, setIsCheckedIn] = useState<boolean>(true);
+  const [currentUser, setCurrentUser] = useState<UserProfile>({
     name: 'Swayam Mhaske',
     phone: '+91 98765 43210',
     location: 'Sector 4B, Kisaanu Farm',
     crop: 'Paddy (Rice)',
   });
 
-  const handleTabSelect = (tabKey) => {
+  const handleTabSelect = (tabKey: TabKey) => {
     if (tabKey === 'Home') setCurrentScreen(5);
     if (tabKey === 'Tasks') setCurrentScreen(6);
     if (tabKey === 'Voice') setCurrentScreen(17);
@@ -107,14 +108,14 @@ function MainNavigator() {
       case 5:
         return (
           <DashboardHomeScreen
-            onNavigate={(screenId) => setCurrentScreen(screenId)}
+            onNavigate={(screenId: number) => setCurrentScreen(screenId)}
             onTabSelect={handleTabSelect}
           />
         );
       case 6:
         return (
           <TodaysTasksScreen
-            onNavigate={(screenId) => setCurrentScreen(screenId)}
+            onNavigate={(screenId: number) => setCurrentScreen(screenId)}
             onTabSelect={handleTabSelect}
           />
         );
@@ -230,7 +231,7 @@ function MainNavigator() {
         return (
           <FarmerProfileScreen
             currentUser={currentUser}
-            onNavigateScreen={(screenId) => setCurrentScreen(screenId)}
+            onNavigateScreen={(screenId: number) => setCurrentScreen(screenId)}
             onLogout={handleLogout}
             onTabSelect={handleTabSelect}
           />
@@ -238,7 +239,7 @@ function MainNavigator() {
       case 21:
         return (
           <NewRegistrationScreen
-            onRegisterSuccess={(newUser) => {
+            onRegisterSuccess={(newUser: NewUser) => {
               setCurrentUser(newUser);
               setCurrentScreen(4); // Permissions then Dashboard
             }}

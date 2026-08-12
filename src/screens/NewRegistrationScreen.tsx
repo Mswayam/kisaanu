@@ -12,12 +12,24 @@ import {
 import { Header } from '../components/Header';
 import { useLanguage } from '../context/LanguageContext';
 
-export const NewRegistrationScreen = ({ onRegisterSuccess, onBackToSignIn }) => {
+export interface NewUser {
+  name: string;
+  phone: string;
+  location: string;
+  crop: string;
+}
+
+export interface NewRegistrationScreenProps {
+  onRegisterSuccess?: (newUser: NewUser) => void;
+  onBackToSignIn?: () => void;
+}
+
+export const NewRegistrationScreen: React.FC<NewRegistrationScreenProps> = ({ onRegisterSuccess, onBackToSignIn }) => {
   const { t } = useLanguage();
-  const [fullName, setFullName] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [villageLocation, setVillageLocation] = useState('');
-  const [selectedCrop, setSelectedCrop] = useState('Paddy (Rice)');
+  const [fullName, setFullName] = useState<string>('');
+  const [mobileNumber, setMobileNumber] = useState<string>('');
+  const [villageLocation, setVillageLocation] = useState<string>('');
+  const [selectedCrop, setSelectedCrop] = useState<string>('Paddy (Rice)');
 
   const cropOptions = [
     t('cropPaddy'),
@@ -31,7 +43,7 @@ export const NewRegistrationScreen = ({ onRegisterSuccess, onBackToSignIn }) => 
       alert('Please enter your full name and mobile number.');
       return;
     }
-    const newUser = {
+    const newUser: NewUser = {
       name: fullName,
       phone: `+91 ${mobileNumber}`,
       location: villageLocation || 'Sector 4B, Kisaanu Farm',

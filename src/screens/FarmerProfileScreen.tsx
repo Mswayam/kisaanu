@@ -10,17 +10,36 @@ import {
   TextInput,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { AvatarIcon } from '../components/Icons';
 import { useLanguage } from '../context/LanguageContext';
 
-export const FarmerProfileScreen = ({ currentUser, onNavigateScreen, onLogout, onTabSelect }) => {
+export interface UserProfile {
+  name?: string;
+  phone?: string;
+  location?: string;
+  crop?: string;
+}
+
+export interface FarmerProfileScreenProps {
+  currentUser?: UserProfile;
+  onNavigateScreen?: (screenId: number) => void;
+  onLogout?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const FarmerProfileScreen: React.FC<FarmerProfileScreenProps> = ({
+  currentUser,
+  onNavigateScreen,
+  onLogout,
+  onTabSelect,
+}) => {
   const { t, language, setLanguage } = useLanguage();
-  const [activeSubTab, setActiveSubTab] = useState(null); // 'personal' | 'attendance' | 'security' | null
-  const [isEditing, setIsEditing] = useState(false);
-  const [farmerName, setFarmerName] = useState(currentUser?.name || 'Swayam Mhaske');
-  const [farmerPhone, setFarmerPhone] = useState(currentUser?.phone || '+91 98765 43210');
-  const [farmLocation, setFarmLocation] = useState(currentUser?.location || 'Sector 4B, Kisaanu Farm');
+  const [activeSubTab, setActiveSubTab] = useState<'personal' | 'attendance' | 'security' | null>(null);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [farmerName, setFarmerName] = useState<string>(currentUser?.name || 'Swayam Mhaske');
+  const [farmerPhone, setFarmerPhone] = useState<string>(currentUser?.phone || '+91 98765 43210');
+  const [farmLocation, setFarmLocation] = useState<string>(currentUser?.location || 'Sector 4B, Kisaanu Farm');
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -119,7 +138,7 @@ export const FarmerProfileScreen = ({ currentUser, onNavigateScreen, onLogout, o
             </View>
             <TouchableOpacity
               style={styles.viewFullBtn}
-              onPress={() => onNavigateScreen(15)}
+              onPress={() => onNavigateScreen && onNavigateScreen(15)}
             >
               <Text style={styles.viewFullBtnText}>Open Full Attendance Screen →</Text>
             </TouchableOpacity>
@@ -167,7 +186,7 @@ export const FarmerProfileScreen = ({ currentUser, onNavigateScreen, onLogout, o
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.menuItem}
-            onPress={() => onNavigateScreen(18)}
+            onPress={() => onNavigateScreen && onNavigateScreen(18)}
           >
             <Text style={styles.menuIcon}>📋</Text>
             <Text style={styles.menuTitle}>{t('farmInputsLogMenu')}</Text>
@@ -178,7 +197,7 @@ export const FarmerProfileScreen = ({ currentUser, onNavigateScreen, onLogout, o
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.menuItem}
-            onPress={() => onNavigateScreen(19)}
+            onPress={() => onNavigateScreen && onNavigateScreen(19)}
           >
             <Text style={styles.menuIcon}>📡</Text>
             <Text style={styles.menuTitle}>{t('systemStatusOfflineMenu')}</Text>

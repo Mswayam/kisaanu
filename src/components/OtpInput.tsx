@@ -1,11 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet, NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
 
-export const OtpInput = ({ codeLength = 6, onCodeFilled }) => {
-  const [code, setCode] = useState(['4', '8', '2', '6', '0', '']);
-  const inputRefs = useRef([]);
+export interface OtpInputProps {
+  codeLength?: number;
+  onCodeFilled?: (code: string) => void;
+}
 
-  const handleChangeText = (text, index) => {
+export const OtpInput: React.FC<OtpInputProps> = ({ codeLength = 6, onCodeFilled }) => {
+  const [code, setCode] = useState<string[]>(['4', '8', '2', '6', '0', '']);
+  const inputRefs = useRef<(TextInput | null)[]>([]);
+
+  const handleChangeText = (text: string, index: number) => {
     const newCode = [...code];
     newCode[index] = text;
     setCode(newCode);
@@ -20,8 +25,8 @@ export const OtpInput = ({ codeLength = 6, onCodeFilled }) => {
     }
   };
 
-  const handleKeyPress = (e, index) => {
-    if (e.nativeEvent.key === 'Backspace' && !code[index] && index > 0) {
+  const handleKeyPress = (e: any, index: number) => {
+    if (e.nativeEvent && e.nativeEvent.key === 'Backspace' && !code[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
   };
@@ -31,7 +36,7 @@ export const OtpInput = ({ codeLength = 6, onCodeFilled }) => {
       {Array.from({ length: codeLength }).map((_, index) => (
         <TextInput
           key={index}
-          ref={(ref) => (inputRefs.current[index] = ref)}
+          ref={(ref) => { inputRefs.current[index] = ref; }}
           style={[
             styles.otpBox,
             code[index] ? styles.otpBoxFilled : styles.otpBoxEmpty,

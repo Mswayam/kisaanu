@@ -10,14 +10,20 @@ import {
   ScrollView,
 } from 'react-native';
 import { Header } from '../components/Header';
-import { BottomNavBar } from '../components/BottomNavBar';
+import { BottomNavBar, TabKey } from '../components/BottomNavBar';
 import { useLanguage } from '../context/LanguageContext';
 
 import satelliteMapImg from '../../assets/images/satellite_map.png';
 
-export const AttendanceCheckOutScreen = ({ onCheckOut, onBack, onTabSelect }) => {
+export interface AttendanceCheckOutScreenProps {
+  onCheckOut?: () => void;
+  onBack?: () => void;
+  onTabSelect?: (tabKey: TabKey) => void;
+}
+
+export const AttendanceCheckOutScreen: React.FC<AttendanceCheckOutScreenProps> = ({ onCheckOut, onBack, onTabSelect }) => {
   const { t } = useLanguage();
-  const [isCheckedOutDone, setIsCheckedOutDone] = useState(false);
+  const [isCheckedOutDone, setIsCheckedOutDone] = useState<boolean>(false);
 
   const handleConfirmCheckOut = () => {
     setIsCheckedOutDone(true);

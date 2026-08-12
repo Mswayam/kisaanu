@@ -12,9 +12,19 @@ import { Header } from '../components/Header';
 import { OtpInput } from '../components/OtpInput';
 import { useLanguage } from '../context/LanguageContext';
 
-export const OtpVerificationScreen = ({ phoneNumber = '+91 XXXXXXX123', onNext, onBack }) => {
+export interface OtpVerificationScreenProps {
+  phoneNumber?: string;
+  onNext?: () => void;
+  onBack?: () => void;
+}
+
+export const OtpVerificationScreen: React.FC<OtpVerificationScreenProps> = ({
+  phoneNumber = '+91 XXXXXXX123',
+  onNext,
+  onBack,
+}) => {
   const { t } = useLanguage();
-  const [timer, setTimer] = useState(28);
+  const [timer, setTimer] = useState<number>(28);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,7 +33,7 @@ export const OtpVerificationScreen = ({ phoneNumber = '+91 XXXXXXX123', onNext, 
     return () => clearInterval(interval);
   }, []);
 
-  const formatTimer = (seconds) => {
+  const formatTimer = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
@@ -41,7 +51,7 @@ export const OtpVerificationScreen = ({ phoneNumber = '+91 XXXXXXX123', onNext, 
         {/* Subtitle */}
         <Text style={styles.subtitleText}>
           {t('verifySubtitlePrefix')}
-          <Text style={styles.phoneNumberHighlight}>+91 XXXXXXX123</Text>
+          <Text style={styles.phoneNumberHighlight}>{phoneNumber}</Text>
         </Text>
 
         {/* 6 Digit Input boxes */}
